@@ -4,23 +4,19 @@ let touch = require("touch.js").connect(TOUCH_PIN);
 let touch2 = require("touch.js").connect(TOUCH_PIN2);
 let STATUS;
 let LED = 2; // led do esptruino
-pinode(LED, "output") // liga led
+pinMode(LED, "output") // liga led
 
-// estamos lendo o touch
 setInterval(() => {
-    let count = touch.read();
-    console.log("TOUCH 1: ", count); 
+    let count = touch.read();  // lendo nosso contato
+    let count2 = touch2.read(); // lendo nosso contato
     if (count < 100) {
-        STATUS = 1;
+        STATUS = 1; // se o nosso contato for abaixo de 100 ele liga
         digitalWrite(LED, STATUS)
     }
+    if (count2 < 100) {
+        STATUS = 0; // se o nosso contato for abaixo de 100 ele desliga
+        digitalWrite(LED, STATUS)
+    }
+    console.log("TOUCH 2: ", count2, "TOUCH 1: ", count );
 }, 100);
 
-setInterval(() => {
-    let count = touch2.read();
-    console.log("TOUCH 2: ", count);
-    if (count < 100) {
-        STATUS = 0;
-        digitalWrite(LED, STATUS)
-    }
-}, 100)

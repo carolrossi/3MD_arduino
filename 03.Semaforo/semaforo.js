@@ -22,7 +22,6 @@ function piscaLed() {
                     digitalWrite(LED_VERMELHO, 0)
                     piscaLed()
 
-
                 }, 600);
             }, 600);
         }, 600);
